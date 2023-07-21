@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Travel and tourism</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <style>
+    /* CSS styles (pretty styling) */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #c0c0c0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #00ffff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+
+    .header {
+      background-color: #ff0000;
+      color: #00ffff;
+      text-align: center;
+      padding: 10px;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+    }
+
+    .footer {
+      background-color: #ff0000;
+      color: #00ffff;
+      text-align: center;
+      padding: 10px;
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+    }
+
+    .title {
+      margin-top: 0;
+    }
+
+    .content {
+      margin-top: 20px;
+    }
+
+    .event {
+      display: none;
+    }
+
+    .event:first-child {
+      display: block;
+    }
+
+    .map-container {
+      height: 300px;
+      margin-bottom: 20px;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    button {
+      background-color: #6a1b9a;
+      color: #008080;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+ <main>
+  <main>
+    <h2>Karibu Kenya!!!</h2>
+   
+    <p>Plan your journey with ease as you navigate through an intuitive interface that showcases detailed information about each destination.</p>
+	<p>Immerse yourself in stunning visuals, user-friendly features, and personalized recommendations tailored to your preferences.</p>
+  </main>
+ 
+  <div class="header">
+    <h1 class="title">Travel and tourism Story map</h1>
+  </div>
+  <div class="container">
+    <div class="content">
+      <div class="event" id="event1">
+        <h2>Mt. Kenya </h2>
+        <p>
+          Climbing to a height of 5,199 meters, Mount Kenya is the second tallest mountain in Africa. The scenery surrounding this designated World Heritage Site is breath-taking. It is pristine wilderness with lakes, tarns, glaciers, dense forest, mineral springs and a selection of rare and endangered species of animals, high altitude adapted plains game and unique montane and alpine vegetation. Visitors can enjoy mountain climbing, camping and caving with the mountain’s rugged glacier-clad peaks providing the perfect backdrop.
+        </p>
+        <div class="map-container" id="map1"></div>
+        <div class="button-container">
+          <button onclick="showNextEvent('event2')">Next</button>
+        </div>
+      </div>
+      <div class="event" id="event2">
+        <h2>Masaai Mara</h2>
+        <p>
+          A vast scenic expanse of gently rolling African savannah plains measuring 1510 square kilometers in area and bordering the Serengeti National Park in Tanzania to the south. Masai Mara is a unique wildlife conservation haven famous for its spectacular natural diversity of wildlife and is the premier Kenya Safari location in East Africa, offering visitors numerous reasons to visit this animal paradise.
+        </p>
+        <div class="map-container" id="map2"></div>
+        <div class="button-container">
+          <button onclick="showNextEvent('event1')">Home</button>
+          <button onclick="showNextEvent('event3')">Next</button>
+        </div>
+      </div>
+      <div class="event" id="event3">
+        <h2>Lamu old town</h2>
+        <p>
+         Lamu Old town is located on an archipelago off the coast of Kenya in the Indian Ocean. Once an important trading center in Islamic coastal East Africa, the town dates to the twelfth century and is the cradle of Swahili culture and an important religious center.
+        </p>
+        <div class="map-container" id="map3"></div>
+        <div class="button-container">
+          <button onclick="showNextEvent('event2')">Previous</button>
+          <button onclick="showNextEvent('event4')">Next</button>
+        </div>
+      </div>
+      <div class="event" id="event4">
+        <h2>Nairobi National Park</h2>
+        <p>
+          Wide open grass plains and backdrop of the city scrapers, scattered acacia bush play host to a wide variety of wildlife including the endangered black rhino, lions, leopards, cheetahs, hyenas, buffaloes, giraffes and diverse birdlife with over 400 species recorded.
+        </p>
+        <div class="map-container" id="map4"></div>
+        <div class="button-container">
+          <button onclick="showNextEvent('event3')">Previous</button>
+          <button onclick="showNextEvent('event1')">Home</button>
+        </div>
+        <!-- No "Next" button for the last event -->
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <p>&copy; ENC221-0102/2018</p>
+  </div>
+  <!-- Include Leaflet library -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script>
+    // JavaScript function (same as before)
+    function showNextEvent(nextEventId) {
+      const currentEvent = document.getElementById(nextEventId);
+      const allEvents = document.getElementsByClassName('event');
+
+      for (let i = 0; i < allEvents.length; i++) {
+        allEvents[i].style.display = 'none';
+      }
+
+      currentEvent.style.display = 'block';
+
+      // Initialize maps (add more map setups here if needed)
+      if (nextEventId === 'event1') {
+        const map1 = L.map('map1').setView([-0.1521, 37.3084], 6); // [latitude, longitude], zoom level
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map1);
+        L.marker([-0.1521, 37.3084]).addTo(map1).bindPopup('Mount Kenya');
+      } else if (nextEventId === 'event2') {
+        const map2 = L.map('map2').setView([-1.4821, 35.1300], 10);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map2);
+        L.marker([-1.4821, 35.1300]).addTo(map2).bindPopup('Masai Mara');
+      } else if (nextEventId === 'event3') {
+        const map3 = L.map('map3').setView([-2.2696, 40.9006], 8);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map3);
+        L.marker([-2.2696, 40.90060]).addTo(map3).bindPopup('Lamu Old Town');
+      } else if (nextEventId === 'event4') {
+        const map4 = L.map('map4').setView([-1.3825, 36.8610], 12);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map4);
+		  L.marker([-1.3825, 36.8610]).addTo(map3).bindPopup('Nairobi National Park');
+       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map4);
+        L.polygon([
+          [-1.2921, 36.8219],
+          [-1.2843, 36.8219],
+          [-1.2843, 36.8365],
+          [-1.2921, 36.8365],
+        ]).addTo(map4).bindPopup('Tourism in Kenya');
+      }
+    }
+  </script>
+</body>
+</html>
